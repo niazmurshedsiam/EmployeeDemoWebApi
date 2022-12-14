@@ -19,7 +19,7 @@ namespace EmployeeDemo.Controllers
             _DbContext = DbContext;
         }
         [HttpGet]
-        public List<Employee> GetAll()
+        public List<Employee> AllEmplyee()
         {
             var employes = _DbContext.Employees.ToList();
             return employes;
@@ -38,14 +38,14 @@ namespace EmployeeDemo.Controllers
         }
 
         [HttpGet("{id}")]
-        public Employee GetEmployeesID(int id)
+        public Employee GetEmployeesByID(int id)
         {
             return _DbContext.Employees.FirstOrDefault(s=>s.EmployeeId == id);
             
         }
 
         [HttpGet("{name}")]
-        public Employee GetEmployeeName(string name)
+        public Employee GetEmployeesByName(string name)
         {
             return _DbContext.Employees.FirstOrDefault(s => s.FirstName == name);
         }
