@@ -24,5 +24,41 @@ namespace EmployeeDemo.Controllers
             var employes = _DbContext.Employees.ToList();
             return employes;
         }
+        [HttpPost]
+        public Employee AddEmployee(Employee employee)
+        {
+            _DbContext.Employees.Add(employee);
+            bool isActive = _DbContext.SaveChanges()>0;
+
+            if (isActive)
+            {
+                return employee;
+            }
+            return null;
+        }
+
+        [HttpGet("{id}")]
+        public Employee GetEmployeesID(int id)
+        {
+            return _DbContext.Employees.FirstOrDefault(s=>s.EmployeeId == id);
+            
+        }
+
+        [HttpGet("{name}")]
+        public Employee GetEmployeeName(string name)
+        {
+            return _DbContext.Employees.FirstOrDefault(s => s.FirstName == name);
+        }
+
+        [HttpDelete("{id}")]
+        public void Delete(int id)
+        {
+            var employee = _DbContext.Employees.FirstOrDefault(s => s.EmployeeId == id);
+            if ( employee!= null)
+            {
+                _DbContext.Employees.Remove(employee);
+                _DbContext.SaveChanges();
+            }
+        }
     }
 }
